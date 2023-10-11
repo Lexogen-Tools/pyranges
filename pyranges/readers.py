@@ -100,7 +100,7 @@ def read_bed(f, as_df=False, nrows=None):
         return df
 
 
-def read_bam(f, sparse=True, as_df=False, mapq=0, required_flag=0, filter_flag=1540):
+def read_bam(f, sparse=True, as_df=False, mapq=0, required_flag=0, filter_flag=1540, chrom=""):
     """Return bam file as PyRanges.
 
     Parameters
@@ -185,10 +185,10 @@ def read_bam(f, sparse=True, as_df=False, mapq=0, required_flag=0, filter_flag=1
         sys.exit(1)
 
     if sparse:
-        df = bamread.read_bam(f, mapq, required_flag, filter_flag)
+        df = bamread.read_bam(f, mapq, required_flag, filter_flag, chrom)
     else:
         try:
-            df = bamread.read_bam_full(f, mapq, required_flag, filter_flag)
+            df = bamread.read_bam_full(f, mapq, required_flag, filter_flag, chrom)
         except AttributeError:
             print("bamread version 0.0.6 or higher is required to read bam non-sparsely.")
 
